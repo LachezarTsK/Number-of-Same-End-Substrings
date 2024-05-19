@@ -23,16 +23,16 @@ func sameEndSubstringCount(input string, queries [][]int) []int {
 	for i := range queries {
 		var start = queries[i][0]
 		var end = queries[i][1]
-		numberOfSameEndSubstrings[i] = countSameEndSubstrings(start, end, prefixSumFrequency)
+		numberOfSameEndSubstrings[i] = countSameEndSubstrings(start, end, &prefixSumFrequency)
 	}
 
 	return numberOfSameEndSubstrings
 }
 
-func countSameEndSubstrings(start int, end int, prefixSumFrequency [][]int) int {
+func countSameEndSubstrings(start int, end int, prefixSumFrequency *[][]int) int {
 	var numberOfSameEndSubstrings = 0
 	for i := 0; i < ALPHABET_SIZE; i++ {
-		frequency := prefixSumFrequency[end+1][i] - prefixSumFrequency[start][i]
+		frequency := (*prefixSumFrequency)[end+1][i] - (*prefixSumFrequency)[start][i]
 		numberOfSameEndSubstrings += frequency * (frequency + 1) / 2
 	}
 	return numberOfSameEndSubstrings
